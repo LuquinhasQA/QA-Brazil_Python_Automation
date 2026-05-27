@@ -38,9 +38,14 @@ class TestUrbanRoutes:
         time.sleep(5)
 
     def test_select_plan(self):
-        # Adicionar em S8
-        print("função criada para definir a rota")
-        pass
+        self.page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+
+        self.page.click_taxi_option()
+        self.page.click_comfort_icon()
+
+        assert self.page.click_confort_active()
+
+        time.sleep(5)
 
     def test_fill_phone_number(self):
         # Adicionar em S8
