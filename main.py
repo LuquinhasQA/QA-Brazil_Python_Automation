@@ -48,14 +48,24 @@ class TestUrbanRoutes:
         time.sleep(5)
 
     def test_fill_phone_number(self):
-        # Adicionar em S8
-        print("função criada para definir a rota")
-        pass
+        self.page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+
+        self.page.click_taxi_option()
+        self.page.click_comfort_icon()
+
+        assert self.page.click_confort_active()
+        self.page.click_number_text(data.PHONE_NUMBER)
+        assert data.PHONE_NUMBER in self.page.numero_confirmado()
+        time.sleep(5)
 
     def test_fill_card(self):
-        # Adicionar em S8
-        print("função criada para definir a rota")
-        pass
+        self.page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        self.page.click_taxi_option()
+        self.page.click_comfort_icon()
+
+        self.page.click_confort_active()
+        self.page.click_add_cartao(data.CARD_NUMBER, data.CARD_CODE)
+        assert "cartao" in self.page.confirm_cartao()
 
     def test_comment_for_driver(self):
         # Adicionar em S8
