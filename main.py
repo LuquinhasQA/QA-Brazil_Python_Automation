@@ -65,7 +65,7 @@ class TestUrbanRoutes:
 
         self.page.click_confort_active()
         self.page.click_add_cartao(data.CARD_NUMBER, data.CARD_CODE)
-        assert "cartao" in self.page.confirm_cartao()
+        assert "Cartão" in self.page.confirm_cartao()
 
     def test_comment_for_driver(self):
         # Adicionar em S8

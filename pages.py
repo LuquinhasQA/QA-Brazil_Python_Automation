@@ -27,10 +27,13 @@ class UrbanRoutesPage:
     add_metodo_pagamento = (By.CSS_SELECTOR, '.pp-button.filled')
     add_card = (By.CSS_SELECTOR, '.pp-plus')
     number_card = (By.ID, 'number')
-    code_card = (By.CSS_SELECTOR, 'input.card-imput#code')
+    code_card = (By.XPATH, '//input[@class="card-input" and @id="code"]')
     add_finish_card = (By.XPATH, '//button[contains(text(),"Adicionar")]')
     close_button_card = (By.CSS_SELECTOR, '.payment-picker.open .close-button')
     comfirm_card = (By.CSS_SELECTOR, '.pp-value-text')
+
+    # Adicionar comentario
+    add_comment = (By.ID, 'comment')
 
     # Seção "De" e "Para"
     from_field = (By.ID, 'from')
@@ -121,18 +124,18 @@ class UrbanRoutesPage:
         return numero.text
 
     def _press_tab(self):
-        self.driver.switch_to.active_element.send.keys(Keys.TAB)
+        self.driver.switch_to.active_element.send_keys(Keys.TAB)
 
     def click_add_cartao(self,cartao,code):
         self.driver.find_element(*self.add_metodo_pagamento).click()
         self.driver.find_element(*self.add_card).click()
-        time.sleep(2)
+
         self.driver.find_element(*self.number_card).send_keys(cartao)
-        time.sleep(2)
+
         self.driver.find_element(*self.code_card).send_keys(code)
-        time.sleep(2)
+
         self._press_tab()
-        time.sleep(10)
+
         self.driver.find_element(*self.add_finish_card).click()
         self.driver.find_element(*self.close_button_card).click()
 
