@@ -35,6 +35,19 @@ class UrbanRoutesPage:
     # Adicionar comentario
     add_comment = (By.ID, 'comment')
 
+    # Pedir cobertor e lençóis
+
+    switch_blanket = (By.CSS_SELECTOR, '.switch')
+    switch_blanket_active = (By.XPATH, "//div[contains(text(), 'Cobertor e lençóis')]/following-sibling::div[1]/div/input")
+
+    #pedindo sorvetes
+    add_icecream = (By.CSS_SELECTOR, '.counter-plus')
+    qnt_icecream = (By.CSS_SELECTOR, '.counter-value')
+
+    #pedindo o taxi
+    call_taxi_button = (By.CSS_SELECTOR, '.smart-button')
+    pop_up = (By.CSS_SELECTOR, '.order-header-title')
+
     # Seção "De" e "Para"
     from_field = (By.ID, 'from')
     to_field = (By.ID, 'to')
@@ -142,3 +155,33 @@ class UrbanRoutesPage:
     def confirm_cartao(self):
         return self.driver.find_element(*self.comfirm_card).text
 
+    def add_comentario(self, comentario):
+        self.driver.find_element(*self.add_comment).send_keys(comentario)
+
+    def coment_confirm(self):
+        return self.driver.find_element(*self.add_comment).get_attribute('value')
+
+    def switch_cobertor(self):
+        switch_ativo = self.driver.find_element(*self.switch_blanket)
+        switch_ativo.click()
+
+    def switch_cobertor_active(self):
+        switch = WebDriverWait(self.driver, timeout=10).until(
+            EC.presence_of_element_located(self.switch_blanket_active)
+        )
+        return switch.is_selected()
+
+    def add_ice(self):
+        self.driver.find_element(*self.add_icecream).click()
+
+    def qnt_sorvete(self):
+        return self.driver.find_element(*self.qnt_icecream).text
+
+    def call_taxi(self):
+        self.driver.find_element(*self.call_taxi_button).click()
+
+    def pop_up_active(self):
+        pop_up = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(self.pop_up)
+        )
+        return pop_up.text

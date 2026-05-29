@@ -35,7 +35,7 @@ class TestUrbanRoutes:
         assert self.page.get_from_location() == data.ADDRESS_FROM
         assert self.page.get_to_location() == data.ADDRESS_TO
 
-        time.sleep(5)
+
 
     def test_select_plan(self):
         self.page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
@@ -45,7 +45,7 @@ class TestUrbanRoutes:
 
         assert self.page.click_confort_active()
 
-        time.sleep(5)
+
 
     def test_fill_phone_number(self):
         self.page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
@@ -56,7 +56,7 @@ class TestUrbanRoutes:
         assert self.page.click_confort_active()
         self.page.click_number_text(data.PHONE_NUMBER)
         assert data.PHONE_NUMBER in self.page.numero_confirmado()
-        time.sleep(5)
+
 
     def test_fill_card(self):
         self.page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
@@ -68,25 +68,48 @@ class TestUrbanRoutes:
         assert "Cartão" in self.page.confirm_cartao()
 
     def test_comment_for_driver(self):
-        # Adicionar em S8
-        print("função criada para definir a rota")
-        pass
+        self.page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        self.page.click_taxi_option()
+        self.page.click_comfort_icon()
+
+        self.page.click_confort_active()
+        self.page.add_comentario(data.MESSAGE_FOR_DRIVER)
+        assert data.MESSAGE_FOR_DRIVER in self.page.coment_confirm()
+
 
     def test_order_blanket_and_handkerchiefs(self):
-        # Adicionar em S8
-        print("função criada para definir a rota")
-        pass
+        self.page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        self.page.click_taxi_option()
+        self.page.click_comfort_icon()
+
+        self.page.click_confort_active()
+        self.page.switch_cobertor()
+
+        assert self.page.switch_cobertor_active() is True
 
     def test_order_2_ice_creams(self):
-        for i in range(2):
-            # Adicionar em S8
-            print("função criada para adicionar a quantidade de sorvetes")
-            pass
+        self.page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        self.page.click_taxi_option()
+        self.page.click_comfort_icon()
+
+        self.page.click_confort_active()
+        self.page.switch_cobertor()
+        for _ in range(2):
+            self.page.add_ice()
+        assert int(self.page.qnt_sorvete()) == 2
+
 
     def test_car_search_model_appears(self):
-        # Adicionar em S8
-        print("função criada para definir a rota")
-        pass
+        self.page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        self.page.click_taxi_option()
+        self.page.click_comfort_icon()
+
+        self.page.click_confort_active()
+        self.page.click_number_text(data.PHONE_NUMBER)
+        self.page.click_add_cartao(data.CARD_NUMBER, data.CARD_CODE)
+        self.page.add_comentario(data.MESSAGE_FOR_DRIVER)
+        self.page.call_taxi()
+        assert "Buscar carro" in self.page.pop_up_active()
 
 
     @classmethod
